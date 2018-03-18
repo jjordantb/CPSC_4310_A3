@@ -29,7 +29,7 @@ public class DTMain {
         DecisionTree tree = new DecisionTree();
         tree.train(dataSamples, features);
 
-        int correctCount = 0;
+        double correctCount = 0;
         final List<DataSample> test = read();
         for (DataSample sample : test) {
             final Label classy;
@@ -38,7 +38,7 @@ public class DTMain {
                 correctCount++;
             }
         }
-        System.out.println("Correctly guessed " + correctCount + " of " + test.size());
+        System.out.println("Correctly guessed " + ((int)correctCount) + " of " + test.size() + " which is " + ((int)((correctCount / test.size()) * 100D)) + "%");
     }
 
     private static List<DataSample> read() throws IOException {
