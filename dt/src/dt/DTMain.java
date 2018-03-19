@@ -24,13 +24,13 @@ import java.util.List;
 public class DTMain {
 
     public static void main(String[] args) throws IOException {
-        List<DataSample> dataSamples = read();
+        List<DataSample> dataSamples = read(false);
         List<Feature> features = defineFeatures();
         DecisionTree tree = new DecisionTree();
         tree.train(dataSamples, features);
 
         double correctCount = 0;
-        final List<DataSample> test = read();
+        final List<DataSample> test = read(true);
         for (DataSample sample : test) {
             final Label classy;
             System.out.println("Guess: " + (classy = tree.classify(sample)) + " Actual: " + sample.getLabel());
@@ -41,13 +41,13 @@ public class DTMain {
         System.out.println("Correctly guessed " + ((int)correctCount) + " of " + test.size() + " which is " + ((int)((correctCount / test.size()) * 100D)) + "%");
     }
 
-    private static List<DataSample> read() throws IOException {
+    private static List<DataSample> read(boolean training) throws IOException {
         final List<DataSample> dataSamples = new ArrayList<>();
         final Reader reader = Files.newBufferedReader(Paths.get("res/seeds.csv"));
         final CSVReader csv = new CSVReader(reader);
 
+        int count = 0;
         String[] headers = null;
-
         String[] next;
         while ((next = csv.readNext()) != null) {
             if (headers == null) {
@@ -55,12 +55,15 @@ public class DTMain {
                 headers[0] = headers[0].substring(1, headers[0].length());
                 continue;
             }
-            final Object[] doubles = new Object[next.length];
-            for (int i = 0; i < next.length; i++) {
-                doubles[i] = Double.valueOf(next[i]);
+            if ((count % 2 == 0 && training) || count % 2 != 0 && !training) {
+                final Object[] doubles = new Object[next.length];
+                for (int i = 0; i < next.length; i++) {
+                    doubles[i] = Double.valueOf(next[i]);
+                }
+                final SeedDataSample dataSample = new SeedDataSample("seed_id", headers, doubles);
+                dataSamples.add(dataSample);
             }
-            final SeedDataSample dataSample = new SeedDataSample("seed_id", headers, doubles);
-            dataSamples.add(dataSample);
+            count++;
         }
         return dataSamples;
     }
