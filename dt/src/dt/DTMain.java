@@ -7,40 +7,94 @@ import dt.feature.Feature;
 import dt.feature.P;
 import dt.feature.PredicateFeature;
 import dt.label.Label;
+import dt.label.SeedLabel;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Parametric on 3/18/2018
+ * @author Jordan on 3/18/2018
  * @project CPSC_4310_A3
  */
 public class DTMain {
 
+    /**
+     * Main function, loads, trains, and tests the Decision Tree,
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
+        System.out.println("Kama 1 | Rosa 2 | Canadian 3");
         List<DataSample> dataSamples = read(false);
         List<Feature> features = defineFeatures();
         DecisionTree tree = new DecisionTree();
         tree.train(dataSamples, features);
 
-        double correctCount = 0;
+        int trueOne = 0, trueTwo = 0, trueThree = 0;
+        int falseOne = 0, falseTwo = 0, falseThree = 0;
+        int total = 0;
         final List<DataSample> test = read(true);
         for (DataSample sample : test) {
             final Label classy;
-            System.out.println("Guess: " + (classy = tree.classify(sample)) + " Actual: " + sample.getLabel());
-            if (sample.getLabel().getName().equals(classy.getName())) {
-                correctCount++;
+            System.out.println(
+                    "Guess: " + SeedDataSample.getSeedName((classy = tree.classify(sample))) +
+                            " Actual: " + SeedDataSample.getSeedName(sample.getLabel()));
+            if (sample.getLabel() instanceof SeedLabel && classy instanceof SeedLabel) {
+                double sampleValue = ((SeedLabel) sample.getLabel()).getValue();
+                double classyValue = ((SeedLabel) classy).getValue();
+                if (sampleValue == classyValue) {
+                    if (classyValue == 1D) {
+                        trueOne++;
+                    } else if (classyValue == 2D) {
+                        trueTwo++;
+                    } else if (classyValue == 3D) {
+                        trueThree++;
+                    }
+                } else {
+                    if (classyValue == 1D) {
+                        falseOne++;
+                    } else if (classyValue == 2D) {
+                        falseTwo++;
+                    } else if (classyValue == 3D) {
+                        falseThree++;
+                    }
+                }
+                total++;
             }
         }
-        System.out.println("Correctly guessed " + ((int)correctCount) + " of " + test.size() + " which is " + ((int)((correctCount / test.size()) * 100D)) + "%");
+        System.out.println("--------------------------");
+        System.out.println("Decision Tree Results");
+        System.out.println("--------------------------");
+        double precOne = ((double)trueOne / (double)(trueOne + falseOne));
+        double precTwo = ((double)trueTwo / (double)(trueTwo + falseTwo));
+        double precThree = ((double)trueThree / (double)(trueThree + falseThree));
+        System.out.println("Precision of 1: " + precOne);
+        System.out.println("Precision of 2: " + precTwo);
+        System.out.println("Precision of 3: " + precThree);
+        System.out.println("Average Precision: " + (precOne + precTwo + precThree) / 3);
+        System.out.println("--------------------------");
+        double recallOne = (double) trueOne / (trueOne + falseTwo + falseThree);
+        double recallTwo = (double) trueTwo / (trueTwo + falseOne + falseThree);
+        double recallThree = (double) trueThree / (trueThree + falseOne + falseTwo);
+        System.out.println("Recall of 1: " + recallOne);
+        System.out.println("Recall of 2: " + recallTwo);
+        System.out.println("Recall of 3: " + recallThree);
+        System.out.println("Average Recall: " + (recallOne + recallTwo + recallThree) / 3);
+        System.out.println("--------------------------");
+        System.out.println("Classified " + (trueOne + trueTwo + trueThree) + " of " + total + " correctly");
+        System.out.println("--------------------------");
     }
 
+    /**
+     * Reads the seed data from the provided csv file
+     * @param training
+     * @return
+     * @throws IOException
+     */
     private static List<DataSample> read(boolean training) throws IOException {
         final List<DataSample> dataSamples = new ArrayList<>();
         final Reader reader = Files.newBufferedReader(Paths.get("res/seeds.csv"));
@@ -55,7 +109,7 @@ public class DTMain {
                 headers[0] = headers[0].substring(1, headers[0].length());
                 continue;
             }
-            if ((count % 2 == 0 && training) || count % 2 != 0 && !training) {
+            if ((count % 6 == 0 && training) || count % 6 != 0 && !training) { // split up training and testing data
                 final Object[] doubles = new Object[next.length];
                 for (int i = 0; i < next.length; i++) {
                     doubles[i] = Double.valueOf(next[i]);
@@ -68,6 +122,10 @@ public class DTMain {
         return dataSamples;
     }
 
+    /**
+     * Predicates for converting to discrete data
+     * @return
+     */
     private static List<Feature> defineFeatures() {
         final List<Feature> features = new ArrayList<>();
 

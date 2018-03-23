@@ -6,10 +6,6 @@ import dt.label.Label;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author Parametric on 3/18/2018
- * @project CPSC_4310_A3
- */
 public class GiniPurity implements PurityCalculator {
 
     @Override

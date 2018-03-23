@@ -7,10 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * @author Parametric on 3/18/2018
- * @project CPSC_4310_A3
- */
 public class SeedDataSample implements DataSample {
 
     private final Map<String, Object> values;
@@ -34,8 +30,11 @@ public class SeedDataSample implements DataSample {
         return new SeedLabel(((Double) values.get(this.colLabel)).intValue());
     }
 
-    public static String getSeedName(final int value) {
-        return value == 1 ? "Kama" : value == 2 ? "Rosa" : "Canadian";
+    public static String getSeedName(final Label value) {
+        if (value instanceof SeedLabel) {
+            return ((SeedLabel) value).getValue() == 1D ? "Kama" : ((SeedLabel) value).getValue() == 2D ? "Rosa" : "Canadian";
+        }
+        return "Not a Seed Label";
     }
 
 }

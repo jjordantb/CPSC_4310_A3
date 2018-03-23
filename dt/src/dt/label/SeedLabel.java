@@ -18,6 +18,10 @@ public class SeedLabel extends Label {
         return "SeedLabel@[" + this.getName() + "]";
     }
 
+    public double getValue() {
+        return value;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o != null && o.getClass() == getClass()) {

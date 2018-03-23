@@ -5,10 +5,6 @@ import dt.label.Label;
 
 import java.util.List;
 
-/**
- * @author Parametric on 3/18/2018
- * @project CPSC_4310_A3
- */
 public interface PurityCalculator {
 
     double calcFor(final List<DataSample> dataSamples);

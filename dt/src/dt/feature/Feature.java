@@ -8,7 +8,6 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.partitioningBy;
 
-
 public interface Feature {
 
     boolean belongsTo(DataSample dataSample);

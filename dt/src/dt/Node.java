@@ -6,10 +6,6 @@ import dt.label.Label;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Parametric on 3/18/2018
- * @project CPSC_4310_A3
- */
 public class Node {
 
     private final Feature feature;
