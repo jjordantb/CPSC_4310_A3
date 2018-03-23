@@ -12,15 +12,23 @@ import java.util.Arrays;
  */
 public class NBMain {
 
+    private static String location = "";
+
     /*
-        Loads the data from res/seeds.csv
+        Loads the data from specified csv file
         I converted the file to CSV using excel and only did so for library usage
      */
 
     public static void main(String[] args) throws IOException {
+        if (args.length <= 0) {
+            System.out.println("Please pass in the location to the .csv file (it's in the res folder)");
+            System.exit(0);
+        }
+        location = args[0];
+
         final Classifier<Integer, Double> classifier = new BayesClassifier<>();
 
-        final Reader reader = Files.newBufferedReader(Paths.get("res/seeds.csv"));
+        final Reader reader = Files.newBufferedReader(Paths.get(location));
         final CSVReader csv = new CSVReader(reader);
 
         int count = 0;
@@ -47,7 +55,7 @@ public class NBMain {
      * @throws IOException
      */
     private static void test(final Classifier<Integer, Double> classifier) throws IOException {
-        final Reader reader = Files.newBufferedReader(Paths.get("res/seeds.csv"));
+        final Reader reader = Files.newBufferedReader(Paths.get(location));
         final CSVReader csv = new CSVReader(reader);
 
         int trueOne = 0, trueTwo = 0, trueThree = 0;

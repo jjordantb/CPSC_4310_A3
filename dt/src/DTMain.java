@@ -14,12 +14,20 @@ import java.util.List;
  */
 public class DTMain {
 
+    private static String location = "";
+
     /**
      * Main function, loads, trains, and tests the Decision Tree,
      * @param args
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
+        if (args.length <= 0) {
+            System.out.println("Please pass in the location to the .csv file (it's in the res folder)");
+            System.exit(0);
+        }
+        location = args[0];
+
         System.out.println("Kama 1 | Rosa 2 | Canadian 3");
         List<DataSample> dataSamples = read(false);
         List<Feature> features = defineFeatures();
@@ -89,7 +97,7 @@ public class DTMain {
      */
     private static List<DataSample> read(boolean training) throws IOException {
         final List<DataSample> dataSamples = new ArrayList<>();
-        final Reader reader = Files.newBufferedReader(Paths.get("res/seeds.csv"));
+        final Reader reader = Files.newBufferedReader(Paths.get(location));
         final CSVReader csv = new CSVReader(reader);
 
         int count = 0;
