@@ -1,7 +1,3 @@
-package dt.purity;
-
-import dt.data.DataSample;
-import dt.label.Label;
 
 import java.util.List;
 import java.util.stream.Collectors;

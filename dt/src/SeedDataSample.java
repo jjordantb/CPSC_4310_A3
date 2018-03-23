@@ -1,7 +1,3 @@
-package dt.data;
-
-import dt.label.Label;
-import dt.label.SeedLabel;
 
 import java.util.HashMap;
 import java.util.Map;

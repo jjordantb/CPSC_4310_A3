@@ -1,4 +1,3 @@
-package dt.label;
 
 public abstract class Label {
 

@@ -1,6 +1,3 @@
-package dt.feature;
-
-import dt.data.DataSample;
 
 import java.util.Optional;
 import java.util.function.Predicate;

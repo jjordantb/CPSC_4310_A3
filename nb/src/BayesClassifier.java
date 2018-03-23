@@ -1,12 +1,8 @@
-package de.daslaboratorium.machinelearning.classifier.bayes;
 
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import de.daslaboratorium.machinelearning.classifier.Classification;
-import de.daslaboratorium.machinelearning.classifier.Classifier;
 
 /**
  * A concrete implementation of the abstract Classifier class.  The Bayes
@@ -15,7 +11,7 @@ import de.daslaboratorium.machinelearning.classifier.Classifier;
  *
  * @author Philipp Nolte
  *
- * @see http://en.wikipedia.org/wiki/Naive_Bayes_classifier
+ * @see //http://en.wikipedia.org/wiki/Naive_Bayes_classifier
  *
  * @param <T> The feature class.
  * @param <K> The category class.
@@ -74,7 +70,7 @@ public class BayesClassifier<T, K> extends Classifier<T, K> {
                         new Comparator<Classification<T, K>>() {
 
                     public int compare(Classification<T, K> o1,
-                            Classification<T, K> o2) {
+                                       Classification<T, K> o2) {
                         int toReturn = Float.compare(
                                 o1.getProbability(), o2.getProbability());
                         if ((toReturn == 0)

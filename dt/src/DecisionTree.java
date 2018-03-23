@@ -1,10 +1,3 @@
-package dt;
-
-import dt.data.DataSample;
-import dt.feature.Feature;
-import dt.label.Label;
-import dt.purity.GiniPurity;
-import dt.purity.PurityCalculator;
 
 import java.util.List;
 import java.util.Map;

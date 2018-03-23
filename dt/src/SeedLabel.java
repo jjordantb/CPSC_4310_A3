@@ -1,4 +1,3 @@
-package dt.label;
 
 public class SeedLabel extends Label {
 

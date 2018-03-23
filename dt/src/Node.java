@@ -1,7 +1,3 @@
-package dt;
-
-import dt.feature.Feature;
-import dt.label.Label;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,4 @@
-package nb;
-
 import au.com.bytecode.opencsv.CSVReader;
-import de.daslaboratorium.machinelearning.classifier.Classifier;
-import de.daslaboratorium.machinelearning.classifier.bayes.BayesClassifier;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -17,7 +13,6 @@ import java.util.Arrays;
 public class NBMain {
 
     /*
-        Main file, and authored by me, everything in the "de" package is a library
         Loads the data from res/seeds.csv
         I converted the file to CSV using excel and only did so for library usage
      */

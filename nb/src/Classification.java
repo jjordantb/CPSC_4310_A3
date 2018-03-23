@@ -1,5 +1,3 @@
-package de.daslaboratorium.machinelearning.classifier;
-
 import java.io.Serializable;
 import java.util.Collection;
 

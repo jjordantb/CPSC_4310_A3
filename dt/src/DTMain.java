@@ -1,13 +1,5 @@
-package dt;
 
 import au.com.bytecode.opencsv.CSVReader;
-import dt.data.DataSample;
-import dt.data.SeedDataSample;
-import dt.feature.Feature;
-import dt.feature.P;
-import dt.feature.PredicateFeature;
-import dt.label.Label;
-import dt.label.SeedLabel;
 
 import java.io.IOException;
 import java.io.Reader;
